@@ -18,8 +18,45 @@ return {
 	{
 		"https://github.com/neovim/nvim-lspconfig",
 		config = function()
+			vim.keymap.set("n", "K", function()
+				vim.lsp.buf.hover({ border = "bold" }) -- or "double", "single", etc.
+			end, {})
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+			vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
+			vim.keymap.set("n", "gl", function()
+				vim.diagnostic.open_float(nil, { border = "bold" })
+			end, {})
+			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, {})
+
 			vim.lsp.enable({
 				"lua_ls",
+			})
+
+			vim.diagnostic.config({
+				virtual_lines = {
+					current_line = true,
+				},
+				-- virtual_text = true,
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
+				float = {
+					border = "bold",
+					source = true,
+				},
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "󰅚 ",
+						[vim.diagnostic.severity.WARN] = "󰀪 ",
+						[vim.diagnostic.severity.INFO] = "󰋽 ",
+						[vim.diagnostic.severity.HINT] = "󰌶 ",
+					},
+					numhl = {
+						[vim.diagnostic.severity.ERROR] = "ErrorMsg",
+						[vim.diagnostic.severity.WARN] = "WarningMsg",
+					},
+				},
 			})
 		end,
 	},
