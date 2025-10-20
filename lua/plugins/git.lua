@@ -29,10 +29,14 @@ return {
 				map("n", "<leader>gR", gs.reset_buffer, "Reset buffer") -- unstage whole buffer
 				map("n", "<leader>gu", gs.undo_stage_hunk, "Undo stage hunk")
 				map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
-				map("n", "<leader>gbl", function() gs.blame_line({ full = true }) end, "Blame line")
+				map("n", "<leader>gbl", function()
+					gs.blame_line({ full = true })
+				end, "Blame line")
 				map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle line blame")
 				map("n", "<leader>gd", gs.diffthis, "Diff this")
-				map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff this ~")
+				map("n", "<leader>gD", function()
+					gs.diffthis("~")
+				end, "Diff this ~")
 
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk")
@@ -40,7 +44,7 @@ return {
 		},
 	},
 
-	-- Lazy git 
+	-- Lazy git
 	{
 		"kdheepak/lazygit.nvim",
 		cmd = {
@@ -60,6 +64,6 @@ return {
 		},
 		config = function()
 			vim.g.lazygit_floating_window_scaling_factor = 0.8
-		end
-	}
+		end,
+	},
 }

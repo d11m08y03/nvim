@@ -6,29 +6,28 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
 		local mode = {
-			'mode',
+			"mode",
 			fmt = function(str)
-				-- return ' ' 
+				-- return ' '
 				-- displays only the first character of the mode
-				return ' ' .. str
+				return " " .. str
 			end,
 		}
 
 		local diff = {
-			'diff',
+			"diff",
 			colored = true,
-			symbols = { added = ' ', modified = ' ', removed = ' ' }, -- changes diff symbols
+			symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
 			-- cond = hide_in_width,
 		}
 
 		local filename = {
-			'filename',
+			"filename",
 			file_status = true,
 			path = 0,
 		}
 
-		local branch = {'branch', icon = {'', color={fg='#A6D4DE'}}, '|'}
-
+		local branch = { "branch", icon = { "", color = { fg = "#A6D4DE" } }, "|" }
 
 		lualine.setup({
 			icons_enabled = true,

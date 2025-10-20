@@ -8,6 +8,11 @@ return {
 	},
 	lazy = false,
 	config = function()
-		vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>Neotree source=filesystem reveal=true position=right toggle<CR>', { noremap = true, silent = true })
-	end
-} 
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>e",
+			"<cmd>Neotree source=filesystem reveal=true position=right toggle<CR>",
+			{ noremap = true, silent = true }
+		)
+	end,
+}
