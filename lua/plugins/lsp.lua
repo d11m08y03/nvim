@@ -18,6 +18,14 @@ return {
 	{
 		"https://github.com/neovim/nvim-lspconfig",
 		config = function()
+			-- Servers
+			vim.lsp.enable({
+				"lua_ls",
+				"ts_ls",
+				"tailwindcss"
+			})
+
+			-- Keymaps
 			vim.keymap.set("n", "K", function()
 				vim.lsp.buf.hover({ border = "bold" }) -- or "double", "single", etc.
 			end, {})
@@ -29,10 +37,9 @@ return {
 			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, {})
 
-			vim.lsp.enable({
-				"lua_ls",
-			})
+			vim.api.nvim_set_keymap("n", "<leader>ls", "<cmd>:help lspconfig-all<CR>", { noremap = true, silent = true })
 
+			-- Diagnostics
 			vim.diagnostic.config({
 				virtual_text = {
 					current_line = true,
