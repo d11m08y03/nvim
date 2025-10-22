@@ -18,6 +18,7 @@ return {
 				lua = { "stylua" },
 				javascript = { "prettierd", stop_after_first = true },
 				typescript = { "prettierd" },
+				typescriptreact = { "prettierd" },
 				json = { "prettierd" },
 				html = { "prettierd" },
 			},
