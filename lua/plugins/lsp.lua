@@ -22,7 +22,8 @@ return {
 			vim.lsp.enable({
 				"lua_ls",
 				"ts_ls",
-				"tailwindcss"
+				"tailwindcss",
+				"bashls",
 			})
 
 			-- Keymaps
@@ -37,7 +38,7 @@ return {
 			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, {})
 
-			vim.api.nvim_set_keymap("n", "<leader>ls", "<cmd>:help lspconfig-all<CR>", { noremap = true, silent = true })
+			vim.api.nvim_set_keymap("n", "<leader>lh", "<cmd>:help lspconfig-all<CR>", { noremap = true, silent = true })
 
 			-- Diagnostics
 			vim.diagnostic.config({
