@@ -24,6 +24,8 @@ return {
 				"ts_ls",
 				"tailwindcss",
 				"bashls",
+				"intelephense",
+				"tinymist",
 			})
 
 			-- Keymaps

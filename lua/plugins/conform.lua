@@ -21,7 +21,9 @@ return {
 				typescriptreact = { "prettierd" },
 				json = { "prettierd" },
 				html = { "prettierd" },
-				sh = { "shfmt", "beautysh " },
+				sh = { "shfmt", "beautysh" },
+				typst = { "prettypst" },
+				php = { "intelephense" },
 			},
 		})
 	end,
