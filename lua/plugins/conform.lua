@@ -17,11 +17,10 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				javascript = { "prettierd", stop_after_first = true },
-				typescript = { "prettierd" },
+				typescript = { "prettierd", stop_after_first = true },
 				typescriptreact = { "prettierd" },
 				json = { "prettierd" },
 				html = { "prettierd" },
-				sh = { "shfmt", "beautysh" },
 				typst = { "prettypst" },
 				php = { "intelephense" },
 			},
