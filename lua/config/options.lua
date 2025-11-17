@@ -10,3 +10,4 @@ vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
 
 vim.opt.winborder = "bold"
+vim.opt.splitright = true
