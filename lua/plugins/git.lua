@@ -85,6 +85,12 @@ return {
 					local footprint = cfg.height + 2 -- account for top/bottom border
 					cfg.row = math.floor((usable_lines - footprint) / 2)
 					vim.api.nvim_win_set_config(win, cfg)
+
+					-- close the window instead of forwarding <Esc> to lazygit's own UI;
+					-- the job keeps running hidden, so reopening reattaches to it
+					vim.keymap.set("t", "<Esc>", function()
+						vim.api.nvim_win_close(win, true)
+					end, { buffer = true, desc = "Close LazyGit" })
 				end,
 			})
 		end,
