@@ -69,22 +69,49 @@ return {
 			vim.api.nvim_set_hl(0, "LazyGitFloat", { link = "NormalFloat" })
 
 			-- lazygit.nvim centers its window against the raw vim.o.lines, which
-			-- includes the statusline and cmdline rows as if they were usable
-			-- space, and it ignores the 2 extra rows the border adds. That leaves
-			-- the window sitting lower than a properly centered float (e.g.
-			-- telescope). Recenter it against the actual visible area once it opens.
+			-- includes the cmdline/statusline rows as if they were usable space
+			-- and ignores the 2 extra rows the border adds. That leaves the window
+			-- sitting off-center vs. a properly centered float (e.g. telescope).
+			-- Recompute the row against the actual visible area instead. It also
+			-- reapplies its own (uncorrected) centering on VimResized, so recenter
+			-- there too, deferred slightly later than its handler (20ms) so ours wins.
+			local function recenter_lazygit(win)
+				if not (win and vim.api.nvim_win_is_valid(win)) then
+					return
+				end
+				local cfg = vim.api.nvim_win_get_config(win)
+				if cfg.relative ~= "editor" then
+					return
+				end
+				local cmdline_rows = vim.o.cmdheight
+				local statusline_rows = vim.o.laststatus > 0 and 1 or 0
+				local usable_lines = vim.o.lines - cmdline_rows - statusline_rows
+				local footprint = cfg.height + 2 -- account for top/bottom border
+				cfg.row = math.floor((usable_lines - footprint) / 2)
+				vim.api.nvim_win_set_config(win, cfg)
+			end
+
+			local function find_lazygit_win()
+				for _, win in ipairs(vim.api.nvim_list_wins()) do
+					if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "lazygit" then
+						return win
+					end
+				end
+			end
+
+			vim.api.nvim_create_autocmd("VimResized", {
+				callback = function()
+					vim.defer_fn(function()
+						recenter_lazygit(find_lazygit_win())
+					end, 40)
+				end,
+			})
+
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "lazygit",
 				callback = function()
 					local win = vim.api.nvim_get_current_win()
-					local cfg = vim.api.nvim_win_get_config(win)
-					if cfg.relative ~= "editor" then
-						return
-					end
-					local usable_lines = vim.o.lines - 2 -- exclude statusline + cmdline
-					local footprint = cfg.height + 2 -- account for top/bottom border
-					cfg.row = math.floor((usable_lines - footprint) / 2)
-					vim.api.nvim_win_set_config(win, cfg)
+					recenter_lazygit(win)
 
 					-- close the window instead of forwarding <Esc> to lazygit's own UI;
 					-- the job keeps running hidden, so reopening reattaches to it

@@ -12,6 +12,8 @@ vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 vim.opt.splitright = true
 
+vim.opt.cmdheight = 0
+
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldcolumn = "0" -- Set to "1" if you want to see a side column for folds
