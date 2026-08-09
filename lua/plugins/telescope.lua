@@ -63,7 +63,6 @@ return {
 		require("telescope").load_extension("ui-select")
 
 		local builtin = require("telescope.builtin")
-		local themes = require("telescope.themes")
 
 		-- Core pickers
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
@@ -95,13 +94,9 @@ return {
 			builtin.lsp_implementations()
 		end, { desc = "Telescope: LSP Implementations", noremap = true, silent = true })
 
-		-- Git mappings (dropdown theme, since these lists are usually short)
-		vim.keymap.set("n", "<leader>gb", function()
-			builtin.git_branches(themes.get_dropdown({}))
-		end, { desc = "Telescope: Git branches" })
-		vim.keymap.set("n", "<leader>gt", function()
-			builtin.git_status(themes.get_dropdown({}))
-		end, { desc = "Telescope: Git status" })
+		-- Git mappings
+		vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "Telescope: Git branches" })
+		vim.keymap.set("n", "<leader>gt", builtin.git_status, { desc = "Telescope: Git status" })
 		vim.keymap.set("n", "<leader>gc", function()
 			builtin.git_commits()
 		end, { desc = "Telescope: Git commits" })
