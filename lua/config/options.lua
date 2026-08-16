@@ -1,3 +1,4 @@
+require("config.remote_clipboard").setup()
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 
